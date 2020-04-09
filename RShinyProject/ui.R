@@ -1,7 +1,7 @@
 
 library(shiny)
 library(shinyWidgets)
-
+myChoices = names(tab2_bonds)
 
 
 shinyUI(tagList(
@@ -59,28 +59,35 @@ shinyUI(tagList(
                              inputId = "checkbox",
                              h4("Which Era of 007?"),
                              choices = list(
+                                 
                                  'Daniel Craig'='Daniel.Craig',
                                  'George Lazenby'= 'George.Lazenby',
                                  'Pierce Brosnan'='Pierce.Brosnan',
                                  'Roger Moore'='Roger.Moore',
                                  'Sean Connery'='Sean.Connery',
                                  'Timothy Dalton'='Timothy.Dalton'
-                                 
-                                 
-                             ),
-                             selected = c('Daniel.Craig',
-                                          'George.Lazenby',
-                                          'Pierce.Brosnan',
-                                          'Roger.Moore',
-                                          'Sean.Connery',
-                                          'Timothy.Dalton')
-                         )
+                             )
+                             
+                         ),
+                         
+                         checkboxInput("all","Select All",value = TRUE),
+                         uiOutput("selected_num")
+                         
+                         
+                         
                      ),
                      
                      mainPanel(
                          
-                         plotOutput("radarplot"),
-                         textOutput("selected_num")
+                         fluidPage(fluidRow(
+                             column(2,
+                             plotOutput(
+                                 "radarplot", width = "700px", height = "600px"
+                             )),
+                             column(10,
+                             imageOutput("bonds",height=600)))
+                         )
+                         
                      )
                          
                      )
